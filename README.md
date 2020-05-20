@@ -324,7 +324,7 @@ Post a session cart to Cart Database for an user.
 
 ### PATCH
 
-Modifies a cart from Cart Database with the sseion cart for a userId.
+Modifies a user's database cart with the session cart based on the user's token given as parameter.
 
 **Return codes**:
 
@@ -366,7 +366,7 @@ Modifies a cart from Cart Database with the sseion cart for a userId.
 
 ### GET
 
-Get a specific cart by its userId.
+Get a specific cart of an user based on the user's token given as parameter.
 
 **Return codes**:
 
@@ -578,7 +578,7 @@ Delete the session cart.
 
 ### DELETE
 
-Delete an user's cart.
+Delete an user's cart based on the user's token given as parameter.
 
 **Return codes**:
 
