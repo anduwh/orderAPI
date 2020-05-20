@@ -44,7 +44,7 @@ class CartService {
 
 		if (token) {
 			const bearer = `Bearer ${token}`;
-			fetch(
+			await fetch(
 				'https://ip-accounts.herokuapp.com/api/users/auth',
 				{
 					method: 'GET',
@@ -58,6 +58,7 @@ class CartService {
 				})
 				.then((response) => {
 					if (response.success) {
+						// console.log('aici');
 						cartData = {
 							token,
 						};
@@ -68,6 +69,8 @@ class CartService {
 						cartData.items = cart.items;
 						cartData.totalPrice = cart.totalPrice;
 						cartData.totalQuantity = cart.totalQty;
+						cartData.userId = response.data.user[0]._id;
+						cartData.providerId = cart.providerId;
 
 						cartObj = new this.db.Cart(cartData);
 					} else {
@@ -169,6 +172,7 @@ class CartService {
 				cart.items = [];
 				cart.totalPrice = 0;
 				cart.totalQty = 0;
+				cart.providerId = '';
 			}
 			storedItem = cart.items.find((elem) => {
 				return elem.id === idProduct;
@@ -182,7 +186,18 @@ class CartService {
 						product: storedProduct.name,
 					},
 				};
-				cart.items.push(storedItem);
+				if (cart.providerId === '') {
+					cart.providerId = storedProduct.providerId;
+					cart.items.push(storedItem);
+				} else if (
+					cart.providerId == storedProduct.providerId
+				) {
+					cart.items.push(storedItem);
+				} else {
+					throw new Error(
+						'Product is from different provider.',
+					);
+				}
 			} else {
 				if (
 					cart.items[cart.items.indexOf(storedItem)].item

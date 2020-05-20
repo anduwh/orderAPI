@@ -25,7 +25,7 @@ Get the all the orders from the db.
 -   400 - There was a problem fetching data
 
 **Usage example**:  
- `localhost:3000/api/v1/orders`
+ `https://orderip.herokuapp.com/api/v1/orders`
 
 **Returned data example**:
 
@@ -127,7 +127,7 @@ Get a specific order by its id.
 -   400 - There was a problem fetching data
 
 **Usage example**:  
- `localhost:3000/api/v1/orders/5ead4f803f29fe06b727b88a`
+ `https://orderip.herokuapp.com/api/v1/orders/5ead4f803f29fe06b727b88a`
 
 **Returned data example**:
 
@@ -173,11 +173,11 @@ Post a order to Order Database
 
 **Body example**
 
-`userId`, `userDeliveryAdress` sunt optionale.
+`token`, `userDeliveryAdress` sunt optionale.
 
 ```JSON
 {
-	"userId": "5e8c4f351842ba322c5c13ec",
+	"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWIxNmZkZjRhZmJmNjU0OTY2Y2I2OGQiLCJpYXQiOjE1ODg2ODY4MzF9.zH0WgOcGZdb8WVy_eehj2-7_Otjbkd4OYCb80Uu49sc",
 	"email": "test@yahoo.com",
     "userFirstName": "Test",
     "userLastName": "Test",
@@ -194,7 +194,7 @@ Post a order to Order Database
 -   400 - Bad Request
 
 **Usage example**:  
- `localhost:3000/api/v1/orders`
+ `https://orderip.herokuapp.com/api/v1/orders`
 
 **Returned data example**:
 
@@ -244,7 +244,7 @@ Get the whole session cart .
 -   400 - There was a problem fetching data
 
 **Usage example**:  
- `localhost:3000/api/v1/cart/session`
+ `https://orderip.herokuapp.com/api/v1/cart/session`
 
 **Returned data example**:
 
@@ -278,7 +278,7 @@ Post a session cart to Cart Database for an user.
 
 ```JSON
 {
-    "userId": "5e8c4f351842ba322c5c13ec",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWIxNmZkZjRhZmJmNjU0OTY2Y2I2OGQiLCJpYXQiOjE1ODg2ODY4MzF9.zH0WgOcGZdb8WVy_eehj2-7_Otjbkd4OYCb80Uu49sc",
 }
 ```
 
@@ -288,7 +288,7 @@ Post a session cart to Cart Database for an user.
 -   400 - Bad Request
 
 **Usage example**:  
- `localhost:3000/api/v1/cart`
+ `https://orderip.herokuapp.com/api/v1/cart`
 
 **Returned data example**:
 
@@ -331,7 +331,7 @@ Modifies a cart from Cart Database with the sseion cart for a userId.
 -   400 - Bad Request
 
 **Usage example**:  
- `localhost:3000/api/v1/cart/5e8c4f351842ba322c5c13ec`
+ `https://orderip.herokuapp.com/api/v1/cart/5e8c4f351842ba322c5c13ec`
 
 **Returned data example**:
 
@@ -373,7 +373,7 @@ Get a specific cart by its userId.
 -   400 - There was a problem fetching data
 
 **Usage example**:  
- `localhost:3000/api/v1/cart/5e8c4f351842ba322c5c13ec`
+ `https://orderip.herokuapp.com/api/v1/cart/5e8c4f351842ba322c5c13ec`
 
 **Returned data example**:
 
@@ -418,7 +418,7 @@ Add a product into a cart session by its id.
 -   400 - Bad request
 
 **Usage example**:  
- `localhost:3000/api/v1/cart/add-product/5eb173d3d6fb9132c43218a2`
+ `https://orderip.herokuapp.com/api/v1/cart/add-product/5eb173d3d6fb9132c43218a2`
 
 **Returned data example**:
 
@@ -456,7 +456,7 @@ Add quantity to a product from the cart session by its id.
 -   400 - Bad request
 
 **Usage example**:  
- `localhost:3000/api/v1/cart/add-quantity/5eb173d3d6fb9132c43218a2`
+ `https://orderip.herokuapp.com/api/v1/cart/add-quantity/5eb173d3d6fb9132c43218a2`
 
 **Returned data example**:
 
@@ -494,7 +494,7 @@ Substract quantity from a product from the cart session by its id.
 -   400 - Bad request
 
 **Usage example**:  
- `localhost:3000/api/v1/cart/substract-quantity/5eb173d3d6fb9132c43218a2`
+ `https://orderip.herokuapp.com/api/v1/cart/substract-quantity/5eb173d3d6fb9132c43218a2`
 
 **Returned data example**:
 
@@ -532,7 +532,7 @@ Delete a product from the cart session by its id.
 -   400 - Bad request
 
 **Usage example**:  
- `localhost:3000/api/v1/cart/delete-product/5eb173d3d6fb9132c43218a2`
+ `https://orderip.herokuapp.com/api/v1/cart/delete-product/5eb173d3d6fb9132c43218a2`
 
 **Returned data example**:
 
@@ -561,7 +561,7 @@ Delete the session cart.
 -   400 - There was a problem fetching data
 
 **Usage example**:  
- `localhost:3000/api/v1/cart/clear`
+ `https://orderip.herokuapp.com/api/v1/cart/clear`
 
 **Returned data example**:
 

@@ -35,7 +35,7 @@ router.post(
 	async function (req, res) {
 		let result;
 
-		if (req.body.userId) {
+		if (req.body.token) {
 			result = await orderService.submit(req, cartService);
 		} else {
 			result = await orderService.submit(req);

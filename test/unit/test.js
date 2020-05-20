@@ -6,7 +6,7 @@ const chai = require('chai');
 
 const expect = chai.expect;
 
-const url = 'http://localhost:3000/api/v1';
+const url = 'https://orderip.herokuapp.com/api/v1';
 
 describe('/orders ROUTES', function () {
 	this.timeout(5000);

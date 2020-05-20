@@ -43,9 +43,44 @@ class OrderService {
 	async submit(req, cartService) {
 		const payload = req.body;
 		let DbCart;
-		if (payload.userId) {
-			DbCart = (await cartService.getCart(req.body.userId))
-				.data;
+		let okToken = true;
+		let tokenUserId;
+
+		const {
+			token,
+			email,
+			userFirstName,
+			userLastName,
+			phoneNumber,
+			userDeliveryAdress,
+			paymentMethod,
+		} = payload;
+
+		if (token) {
+			const bearer = `Bearer ${token}`;
+			await fetch(
+				'https://ip-accounts.herokuapp.com/api/users/auth',
+				{
+					method: 'GET',
+					headers: {
+						Authorization: bearer,
+					},
+				},
+			)
+				.then((res) => {
+					return res.json();
+				})
+				.then((response) => {
+					if (!response.success) {
+						okToken = false;
+					} else {
+						tokenUserId = response.data.user[0]._id;
+					}
+				})
+				.catch((error) => {
+					Logger.error(error);
+				});
+			DbCart = (await cartService.getCart(tokenUserId)).data;
 		}
 
 		const cart = req.session.cart
@@ -64,24 +99,12 @@ class OrderService {
 					totalPrice: 20,
 					totalQty: 1,
 			  };
-		const {
-			userId,
-			email,
-			userFirstName,
-			userLastName,
-			phoneNumber,
-			restaurantId,
-			userDeliveryAdress,
-			paymentMethod,
-		} = payload;
 
 		const orderData = {
-			userId,
 			email,
 			userFirstName,
 			userLastName,
 			phoneNumber,
-			restaurantId,
 			userDeliveryAdress,
 			paymentMethod,
 		};
@@ -89,10 +112,11 @@ class OrderService {
 		date.setHours(date.getHours() + 3);
 		orderData.orderDate = date;
 
-		if (payload.userId) {
+		if (token && okToken) {
 			orderData.guest = false;
 			orderData.items = DbCart.cart[0].items;
 			orderData.amount = DbCart.cart[0].totalPrice;
+			orderData.userId = tokenUserId;
 		} else {
 			orderData.items = cart.items;
 			orderData.amount = cart.totalPrice;
@@ -106,9 +130,13 @@ class OrderService {
 				date,
 			);
 
+			if (!okToken) {
+				throw new Error('The user is not logged in.');
+			}
+
 			if (!existsOrder) {
 				if (req.body.paymentMethod === 'card') {
-					if (payload.userId) {
+					if (token && okToken) {
 						await this.cardPayment(
 							DbCart.cart[0],
 							req.body.paymentToken,
@@ -124,25 +152,29 @@ class OrderService {
 				}
 				await order.save();
 				await this.sendOrderMail(orderData);
-				fetch(
-					'https://ip-accounts.herokuapp.com/api/clients/addCommand',
-					{
-						method: 'POST',
-						body: {
-							clientId: order.userId,
-							providerId: order.restaurantId,
-							commandId: order._id,
+
+				if (token && okToken) {
+					fetch(
+						'https://ip-accounts.herokuapp.com/api/clients/addCommand',
+						{
+							method: 'POST',
+							body: {
+								clientId: order.userId,
+								providerId: order.restaurantId,
+								commandId: order._id,
+							},
 						},
-					},
-				)
-					.then((res) => {
-						return res.json();
-					})
-					.catch((error) => {
-						Logger.error(error);
-					});
-				if (payload.userId) {
-					cartService.deleteCart(payload.userId);
+					)
+						.then((res) => {
+							return res.json();
+						})
+						.catch((error) => {
+							Logger.error(error);
+						});
+				}
+
+				if (order.userId) {
+					cartService.deleteCart(order.userId);
 				} else {
 					delete req.session.cart;
 				}

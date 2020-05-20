@@ -1,9 +1,7 @@
 const { Joi } = require('celebrate');
 
 const orderValidationSchema = Joi.object().keys({
-	userId: Joi.string()
-		.regex(/^[a-fA-F0-9]{24}$/)
-		.error(new Error('User id invalid')),
+	token: Joi.string().error(new Error('Token is invalid')),
 	email: Joi.string()
 		.email()
 		.required()

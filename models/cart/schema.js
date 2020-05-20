@@ -19,6 +19,10 @@ const cartSchema = mongoose.Schema({
 		min: 1,
 		required: true,
 	},
+	providerId: {
+		type: String,
+		required: true,
+	},
 	items: [
 		{
 			id: {
