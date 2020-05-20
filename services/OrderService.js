@@ -125,7 +125,7 @@ class OrderService {
 				await order.save();
 				await this.sendOrderMail(orderData);
 				fetch(
-					'http://localhost:4000/api/clients/addCommand',
+					'https://ip-accounts.herokuapp.com/api/clients/addCommand',
 					{
 						method: 'POST',
 						body: {

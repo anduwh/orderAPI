@@ -37,22 +37,52 @@ class CartService {
 	async add(req) {
 		const payload = req.body;
 		const { cart } = req.session;
-		const { userId } = payload;
+		const { token } = payload;
+		let cartData;
+		let okToken = true;
+		let cartObj;
 
-		const cartData = {
-			userId,
-		};
-		const date = new Date();
-		date.setHours(date.getHours() + 3);
-		cartData.modifiedDate = date;
+		if (token) {
+			const bearer = `Bearer ${token}`;
+			fetch(
+				'https://ip-accounts.herokuapp.com/api/users/auth',
+				{
+					method: 'GET',
+					headers: {
+						Authorization: bearer,
+					},
+				},
+			)
+				.then((res) => {
+					return res.json();
+				})
+				.then((response) => {
+					if (response.success) {
+						cartData = {
+							token,
+						};
+						const date = new Date();
+						date.setHours(date.getHours() + 3);
+						cartData.modifiedDate = date;
 
-		cartData.items = cart.items;
-		cartData.totalPrice = cart.totalPrice;
-		cartData.totalQuantity = cart.totalQty;
+						cartData.items = cart.items;
+						cartData.totalPrice = cart.totalPrice;
+						cartData.totalQuantity = cart.totalQty;
 
-		const cartObj = new this.db.Cart(cartData);
+						cartObj = new this.db.Cart(cartData);
+					} else {
+						okToken = false;
+					}
+				})
+				.catch((error) => {
+					Logger.error(error);
+				});
+		}
 
 		try {
+			if (!okToken) {
+				throw new Error('The user is not logged in.');
+			}
 			await cartObj.save();
 
 			return { success: true, data: { cartObj } };
@@ -116,13 +146,16 @@ class CartService {
 
 	async getProduct(idProduct) {
 		let product;
-		await fetch(`http://localhost:4000/api/courses/${idProduct}`)
+		await fetch(
+			`https://ip-accounts.herokuapp.com/api/courses/${idProduct}`,
+		)
 			.then((response) => response.json())
 			.then(async function (data) {
 				product = data.data[0];
+				Logger.error(product);
 			})
 			.catch((err) => {
-				throw new Error("product doesn't exsit.");
+				throw new Error("Product doesn't exist.");
 			});
 		return product;
 	}
