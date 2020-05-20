@@ -35,8 +35,8 @@ router.get('/clear', async (req, res) => {
 	});
 });
 
-router.get('/:idUser', async (req, res) => {
-	const result = await cartService.getCart(req.params.idUser);
+router.get('/user', async (req, res) => {
+	const result = await cartService.getCart(req.query.token);
 	const statusCode = result.success
 		? statusCodes.OK
 		: statusCodes.BAD_REQUEST;
@@ -59,7 +59,7 @@ router.post(
 	},
 );
 
-router.patch('/:idUser', async function (req, res) {
+router.patch('/user', async function (req, res) {
 	const result = await cartService.update(req);
 	const statusCode = result.success
 		? statusCodes.ACCEPTED
@@ -77,8 +77,8 @@ router.delete('/all', async (req, res) => {
 	res.status(statusCode).json(result);
 });
 
-router.delete('/:idUser', async (req, res) => {
-	const result = await cartService.deleteCart(req.params.idUser);
+router.delete('/user', async (req, res) => {
+	const result = await cartService.deleteCart(req.query.token);
 	const statusCode = result.success
 		? statusCodes.NO_CONTENT
 		: statusCodes.BAD_REQUEST;

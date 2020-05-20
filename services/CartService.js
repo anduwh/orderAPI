@@ -20,10 +20,42 @@ class CartService {
 		}
 	}
 
-	async getCart(idUser) {
+	async getCart(token) {
+		let tokenIdUser;
+		let okToken = true;
+		if (token) {
+			const bearer = `Bearer ${token}`;
+			await fetch(
+				'https://ip-accounts.herokuapp.com/api/users/auth',
+				{
+					method: 'GET',
+					headers: {
+						Authorization: bearer,
+					},
+				},
+			)
+				.then((res) => {
+					return res.json();
+				})
+				.then((response) => {
+					if (response.success) {
+						tokenIdUser = response.data.user[0]._id;
+					} else {
+						okToken = false;
+					}
+				})
+				.catch((error) => {
+					Logger.error(error);
+				});
+		} else {
+			okToken = false;
+		}
 		try {
+			if (!okToken) {
+				throw new Error('The user is not logged in.');
+			}
 			const cart = await this.db.Cart.find({
-				userId: idUser,
+				userId: tokenIdUser,
 			});
 			return { success: true, data: { cart } };
 		} catch (error) {
@@ -80,6 +112,8 @@ class CartService {
 				.catch((error) => {
 					Logger.error(error);
 				});
+		} else {
+			okToken = false;
 		}
 
 		try {
@@ -99,11 +133,43 @@ class CartService {
 	}
 
 	async update(req) {
-		const { idUser } = req.params;
+		const { token } = req.query;
 		const { cart } = req.session;
+		let tokenIdUser;
+		let okToken = true;
+		if (token) {
+			const bearer = `Bearer ${token}`;
+			await fetch(
+				'https://ip-accounts.herokuapp.com/api/users/auth',
+				{
+					method: 'GET',
+					headers: {
+						Authorization: bearer,
+					},
+				},
+			)
+				.then((res) => {
+					return res.json();
+				})
+				.then((response) => {
+					if (response.success) {
+						tokenIdUser = response.data.user[0]._id;
+					} else {
+						okToken = false;
+					}
+				})
+				.catch((error) => {
+					Logger.error(error);
+				});
+		} else {
+			okToken = false;
+		}
 		try {
+			if (!okToken) {
+				throw new Error('The user is not logged in.');
+			}
 			const cartObj = await this.db.Cart.updateOne(
-				{ userId: idUser },
+				{ userId: tokenIdUser },
 				cart,
 			);
 
@@ -131,10 +197,42 @@ class CartService {
 		}
 	}
 
-	async deleteCart(idUser) {
+	async deleteCart(token) {
+		let tokenIdUser;
+		let okToken = true;
+		if (token) {
+			const bearer = `Bearer ${token}`;
+			await fetch(
+				'https://ip-accounts.herokuapp.com/api/users/auth',
+				{
+					method: 'GET',
+					headers: {
+						Authorization: bearer,
+					},
+				},
+			)
+				.then((res) => {
+					return res.json();
+				})
+				.then((response) => {
+					if (response.success) {
+						tokenIdUser = response.data.user[0]._id;
+					} else {
+						okToken = false;
+					}
+				})
+				.catch((error) => {
+					Logger.error(error);
+				});
+		} else {
+			okToken = false;
+		}
 		try {
+			if (!okToken) {
+				throw new Error('The user is not logged in.');
+			}
 			const cart = await this.db.Cart.deleteOne({
-				userId: idUser,
+				userId: tokenIdUser,
 			});
 
 			return { success: true, data: { cart } };

@@ -297,29 +297,30 @@ Post a session cart to Cart Database for an user.
     "success": true,
     "data": {
         "cartObj": {
-            "_id": "5eb29521bae6850104c2993d",
-            "userId": "5e8c4f351842ba322c5c13ec",
-            "modifiedDate": "2020-05-06T13:44:49.816Z",
+            "_id": "5ec518cbfb69ed10e965903d",
+            "modifiedDate": "2020-05-20T14:47:23.050Z",
             "items": [
                 {
-                    "_id": "5eb29521bae6850104c2993e",
-                    "id": "5eb173d3d6fb9132c43218a2",
+                    "_id": "5ec518cbfb69ed10e965903e",
+                    "id": "5eb17a5c6f436666294bc420",
                     "item": {
-                        "price": 20,
-                        "quantity": 2,
-                        "product": "Pizza"
+                        "price": 10,
+                        "quantity": 4,
+                        "product": "house pizza"
                     }
                 }
             ],
             "totalPrice": 40,
-            "totalQuantity": 2,
+            "totalQuantity": 4,
+            "userId": "5eb16fdf4afbf654966cb68d",
+            "providerId": "5eb17a5b251c5187bd97251a",
             "__v": 0
         }
     }
 }
 ```
 
-## /api/v1/cart/:userId
+## /api/v1/cart/user
 
 ### PATCH
 
@@ -331,7 +332,7 @@ Modifies a cart from Cart Database with the sseion cart for a userId.
 -   400 - Bad Request
 
 **Usage example**:  
- `https://orderip.herokuapp.com/api/v1/cart/5e8c4f351842ba322c5c13ec`
+ `https://orderip.herokuapp.com/api/v1/cart/user?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWIxNmZkZjRhZmJmNjU0OTY2Y2I2OGQiLCJpYXQiOjE1ODg2ODY4MzF9.zH0WgOcGZdb8WVy_eehj2-7_Otjbkd4OYCb80Uu49sc`
 
 **Returned data example**:
 
@@ -361,7 +362,7 @@ Modifies a cart from Cart Database with the sseion cart for a userId.
 }
 ```
 
-## /api/v1/cart/:userId
+## /api/v1/cart/user
 
 ### GET
 
@@ -373,7 +374,7 @@ Get a specific cart by its userId.
 -   400 - There was a problem fetching data
 
 **Usage example**:  
- `https://orderip.herokuapp.com/api/v1/cart/5e8c4f351842ba322c5c13ec`
+ `https://orderip.herokuapp.com/api/v1/cart/user?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWIxNmZkZjRhZmJmNjU0OTY2Y2I2OGQiLCJpYXQiOjE1ODg2ODY4MzF9.zH0WgOcGZdb8WVy_eehj2-7_Otjbkd4OYCb80Uu49sc`
 
 **Returned data example**:
 
@@ -383,22 +384,23 @@ Get a specific cart by its userId.
     "data": {
         "cart": [
             {
-                "_id": "5eb29521bae6850104c2993d",
-                "userId": "5e8c4f351842ba322c5c13ec",
-                "modifiedDate": "2020-05-06T13:44:49.816Z",
+                "_id": "5ec51859fb69ed10e965903b",
+                "modifiedDate": "2020-05-20T14:45:29.141Z",
                 "items": [
                     {
                         "item": {
-                            "price": 20,
-                            "quantity": 2,
-                            "product": "Pizza"
+                            "price": 10,
+                            "quantity": 4,
+                            "product": "house pizza"
                         },
-                        "_id": "5eb29521bae6850104c2993e",
-                        "id": "5eb173d3d6fb9132c43218a2"
+                        "_id": "5ec51859fb69ed10e965903c",
+                        "id": "5eb17a5c6f436666294bc420"
                     }
                 ],
                 "totalPrice": 40,
-                "totalQuantity": 2,
+                "totalQuantity": 4,
+                "userId": "5eb16fdf4afbf654966cb68d",
+                "providerId": "5eb17a5b251c5187bd97251a",
                 "__v": 0
             }
         ]
@@ -571,3 +573,17 @@ Delete the session cart.
     "data": "Cart cleared"
 }
 ```
+
+## /api/v1/cart/user
+
+### DELETE
+
+Delete an user's cart.
+
+**Return codes**:
+
+-   204 - No Content
+-   400 - There was a problem fetching data
+
+**Usage example**:  
+ `https://orderip.herokuapp.com/api/v1/cart/user?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWIxNmZkZjRhZmJmNjU0OTY2Y2I2OGQiLCJpYXQiOjE1ODg2ODY4MzF9.zH0WgOcGZdb8WVy_eehj2-7_Otjbkd4OYCb80Uu49sc`

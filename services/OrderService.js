@@ -80,7 +80,7 @@ class OrderService {
 				.catch((error) => {
 					Logger.error(error);
 				});
-			DbCart = (await cartService.getCart(tokenUserId)).data;
+			DbCart = (await cartService.getCart(token)).data;
 		}
 
 		const cart = req.session.cart
