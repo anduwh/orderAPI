@@ -19,10 +19,6 @@ const orderValidationSchema = Joi.object().keys({
 		.trim()
 		.regex(/^[0-9]{7,10}$/)
 		.error(new Error('Phone Number required')),
-	restaurantId: Joi.string()
-		.regex(/^[a-fA-F0-9]{24}$/)
-		.required()
-		.error(new Error('Restaurant id invalid')),
 	userDeliveryAdress: Joi.string().error(
 		new Error('Adress invalid'),
 	),
