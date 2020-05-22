@@ -117,9 +117,11 @@ class OrderService {
 			orderData.items = DbCart.cart[0].items;
 			orderData.amount = DbCart.cart[0].totalPrice;
 			orderData.userId = tokenUserId;
+			orderData.restaurantId = DbCart.cart[0].providerId;
 		} else {
 			orderData.items = cart.items;
 			orderData.amount = cart.totalPrice;
+			orderData.restaurantId = cart.providerId;
 		}
 
 		const order = new this.db.Order(orderData);
