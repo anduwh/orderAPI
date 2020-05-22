@@ -79,6 +79,7 @@ router.delete('/all', async (req, res) => {
 
 router.delete('/user', async (req, res) => {
 	const result = await cartService.deleteCart(req.query.token);
+	delete req.session.cart;
 	const statusCode = result.success
 		? statusCodes.NO_CONTENT
 		: statusCodes.BAD_REQUEST;
