@@ -73,7 +73,6 @@ class CartService {
 		let cartData;
 		let okToken = true;
 		let cartObj;
-		let tokenUserId;
 
 		if (token) {
 			const bearer = `Bearer ${token}`;
@@ -92,7 +91,20 @@ class CartService {
 				.then((response) => {
 					if (response.success) {
 						// console.log('aici');
-						tokenUserId = response.data.user[0]._id;
+						cartData = {
+							token,
+						};
+						const date = new Date();
+						date.setHours(date.getHours() + 3);
+						cartData.modifiedDate = date;
+
+						cartData.items = cart.items;
+						cartData.totalPrice = cart.totalPrice;
+						cartData.totalQuantity = cart.totalQty;
+						cartData.userId = response.data.user[0]._id;
+						cartData.providerId = cart.providerId;
+
+						cartObj = new this.db.Cart(cartData);
 					} else {
 						okToken = false;
 					}
@@ -108,20 +120,6 @@ class CartService {
 			if (!okToken) {
 				throw new Error('The user is not logged in.');
 			}
-			cartData = {
-				token,
-			};
-			const date = new Date();
-			date.setHours(date.getHours() + 3);
-			cartData.modifiedDate = date;
-
-			cartData.items = cart.items;
-			cartData.totalPrice = cart.totalPrice;
-			cartData.totalQuantity = cart.totalQty;
-			cartData.userId = tokenUserId;
-			cartData.providerId = cart.providerId;
-
-			cartObj = new this.db.Cart(cartData);
 			await cartObj.save();
 
 			return { success: true, data: { cartObj } };
