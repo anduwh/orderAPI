@@ -182,7 +182,6 @@ Post a order to Order Database
     "userFirstName": "Test",
     "userLastName": "Test",
     "phoneNumber": "2341341227",
-    "restaurantId": "5eb16d673a637d28884dc226",
     "paymentMethod": "cash",
     "userDeliveryAdress": "Str. Palat 10"
 }
