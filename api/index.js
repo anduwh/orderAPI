@@ -16,7 +16,7 @@ app.use(
 	session({
 		name: 'cart.1',
 		secret: 'cartSession',
-		resave: true,
+		resave: false,
 		saveUninitialized: true,
 		store: new MongoStore({
 			mongooseConnection: mongoose.connection,
