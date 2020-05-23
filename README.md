@@ -311,7 +311,7 @@ Post a session cart to Cart Database for an user.
                 }
             ],
             "totalPrice": 40,
-            "totalQuantity": 4,
+            "totalQty": 4,
             "userId": "5eb16fdf4afbf654966cb68d",
             "providerId": "5eb17a5b251c5187bd97251a",
             "__v": 0
@@ -398,7 +398,7 @@ Get a specific cart of an user based on the user's token given as parameter.
                     }
                 ],
                 "totalPrice": 40,
-                "totalQuantity": 4,
+                "totalQty": 4,
                 "userId": "5eb16fdf4afbf654966cb68d",
                 "providerId": "5eb17a5b251c5187bd97251a",
                 "__v": 0

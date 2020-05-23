@@ -9,7 +9,7 @@ const cartSchema = mongoose.Schema({
 		type: Date,
 		required: true,
 	},
-	totalQuantity: {
+	totalQty: {
 		type: Number,
 		min: 1,
 		required: true,
@@ -20,7 +20,7 @@ const cartSchema = mongoose.Schema({
 		required: true,
 	},
 	providerId: {
-		type: String,
+		type: mongoose.Types.ObjectId,
 		required: true,
 	},
 	items: [

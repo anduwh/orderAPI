@@ -28,7 +28,7 @@ const orderSchema = mongoose.Schema({
 	},
 	restaurantId: {
 		type: mongoose.Types.ObjectId,
-		required: false,
+		required: true,
 	},
 	orderDate: {
 		type: Date,

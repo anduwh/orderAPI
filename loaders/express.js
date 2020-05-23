@@ -31,7 +31,6 @@ module.exports = (app) => {
 			origin: 'http://localhost:3000',
 		}),
 	);
-	// 'http://localhost:3001'
 	// Some sauce that always add since 2014
 	// "Lets you use HTTP verbs such as PUT or DELETE in places where the client doesn't support it."
 	// Maybe not needed anymore ?

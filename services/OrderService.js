@@ -175,8 +175,9 @@ class OrderService {
 						});
 				}
 
-				if (order.userId) {
-					cartService.deleteCart(order.userId);
+				if (token && okToken) {
+					cartService.deleteCart(token);
+					delete req.session.cart;
 				} else {
 					delete req.session.cart;
 				}

@@ -91,7 +91,6 @@ class CartService {
 				})
 				.then((response) => {
 					if (response.success) {
-						// console.log('aici');
 						tokenUserId = response.data.user[0]._id;
 					} else {
 						okToken = false;
@@ -117,7 +116,7 @@ class CartService {
 
 			cartData.items = cart.items;
 			cartData.totalPrice = cart.totalPrice;
-			cartData.totalQuantity = cart.totalQty;
+			cartData.totalQty = cart.totalQty;
 			cartData.userId = tokenUserId;
 			cartData.providerId = cart.providerId;
 
