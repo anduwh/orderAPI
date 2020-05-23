@@ -28,7 +28,7 @@ module.exports = (app) => {
 	app.use(
 		cors({
 			credentials: true,
-			origin: 'http://localhost:3000',
+			origin: 'https://proiect-ip.herokuapp.com',
 		}),
 	);
 	// Some sauce that always add since 2014
