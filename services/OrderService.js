@@ -78,7 +78,7 @@ class OrderService {
 					}
 				})
 				.catch((error) => {
-					Logger.error(error);
+					Logger.error('aici:', error);
 				});
 			DbCart = (await cartService.getCart(token)).data;
 		}

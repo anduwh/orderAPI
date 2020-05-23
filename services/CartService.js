@@ -254,7 +254,6 @@ class CartService {
 			.then((response) => response.json())
 			.then(async function (data) {
 				product = data.data[0];
-				Logger.error(product);
 			})
 			.catch((err) => {
 				throw new Error("Product doesn't exist.");
